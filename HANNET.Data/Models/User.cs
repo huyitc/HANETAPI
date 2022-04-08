@@ -11,6 +11,10 @@ namespace HANNET.Data.Models
     {
         [Key]
         public long UserId { get; set; } 
-        public List<Place> Places { get; set; }
+
+        public int PlaceId { get; set; }
+
+        public Place Place { get; set; }
+
     }
 }

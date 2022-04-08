@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HANNET.Data.Migrations
 {
@@ -7,36 +8,17 @@ namespace HANNET.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Places",
                 columns: table => new
                 {
                     PlaceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PlaceName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Places", x => x.PlaceId);
-                    table.ForeignKey(
-                        name: "FK_Places_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,16 +50,58 @@ namespace HANNET.Data.Migrations
                     PersonName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AliasID = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PlaceID = table.Column<int>(type: "int", nullable: false)
+                    PlaceId = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Persons", x => x.PersonId);
                     table.ForeignKey(
-                        name: "FK_Persons_Places_PlaceID",
-                        column: x => x.PlaceID,
+                        name: "FK_Persons_Places_PlaceId",
+                        column: x => x.PlaceId,
                         principalTable: "Places",
                         principalColumn: "PlaceId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PlaceId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_Users_Places_PlaceId",
+                        column: x => x.PlaceId,
+                        principalTable: "Places",
+                        principalColumn: "PlaceId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonImages",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PersonId = table.Column<int>(type: "int", nullable: false),
+                    Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FileSize = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonImages", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_PersonImages_Persons_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Persons",
+                        principalColumn: "PersonId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -87,14 +111,19 @@ namespace HANNET.Data.Migrations
                 column: "PlaceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Persons_PlaceID",
-                table: "Persons",
-                column: "PlaceID");
+                name: "IX_PersonImages_PersonId",
+                table: "PersonImages",
+                column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Places_UserId",
-                table: "Places",
-                column: "UserId");
+                name: "IX_Persons_PlaceId",
+                table: "Persons",
+                column: "PlaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_PlaceId",
+                table: "Users",
+                column: "PlaceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -103,13 +132,16 @@ namespace HANNET.Data.Migrations
                 name: "Devices");
 
             migrationBuilder.DropTable(
+                name: "PersonImages");
+
+            migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Persons");
 
             migrationBuilder.DropTable(
                 name: "Places");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

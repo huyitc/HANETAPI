@@ -13,8 +13,7 @@ namespace HANNET.Data.Models
         public int PlaceId { get; set; }
         public string PlaceName { get; set; }
         public string Address { get; set; }
-        public long UserId { get; set; }
-        public User User { get; set; }
+        public List<User> User { get; set; }
         public List<Device> Device { get; set; }
         public List<Person> Person { get; set; }
 

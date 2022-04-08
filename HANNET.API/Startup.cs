@@ -26,6 +26,9 @@ namespace HANNET.API
             services.AddDbContext<HanNetContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:HannetDatabase"]));
 
             services.AddScoped<IDeviceRepository, DeviceRepository>();
+            services.AddScoped<IPlaceRepository, PlaceRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IStorageRepository, FileStorageRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

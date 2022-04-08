@@ -14,7 +14,9 @@ namespace HANNET.Data.Models
         public string PersonName { get; set; }
         public int AliasID { get; set; }
         public string Title { get; set; }
-        public int PlaceID { get; set; }
+        public int PlaceId { get; set; }
+        public bool Type { get; set; }
         public Place Place { get; set; }
+        public List<PersonImage> PersonImages { get; set; }
     }
 }

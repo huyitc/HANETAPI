@@ -5,6 +5,7 @@ using HANNET.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,34 +21,64 @@ namespace HANNET.API.Controllers
         {
             _deviceRepository = deviceRepository;
         }
-        [HttpGet]
-        [Route("getListDevice")]
-
+        [HttpGet("/getListDevice")]
         public async Task<IActionResult> getListDevice()
         {
             var devices = await _deviceRepository.GetAll();
             return Ok(devices);
         }
 
-        [HttpGet("{PlaceId}")]
+        [HttpGet("/get-list-device-by-placeId/{PlaceId}")]
         public async Task<IActionResult> getListDeviceByPlaceId(int PlaceId)
         {
             var devices = await _deviceRepository.GetByPlaceID(PlaceId);
-            if(devices==null)
+            if (devices == null)
             {
-                return NotFound("Device not found");
-            } 
+                return BadRequest("Device not found");
+            }
             return Ok(devices);
         }
-        
-        [HttpPut]
-        public async Task<IActionResult> updateDevice(DeviceUpdateModels models)
+
+        [HttpPut("/updateDevice")]
+        public async Task<IActionResult> updateDevice([FromForm] DeviceUpdateModels models)
         {
-           var affectedResult = await _deviceRepository.Update(models);
+            var affectedResult = await _deviceRepository.Update(models);
             if (affectedResult == 0)
             {
                 return BadRequest();
             }
+            return Ok();
+        }
+
+        [HttpPost("/addDevice")]
+        public async Task<IActionResult> addDevice([FromForm] DeviceAddModels models)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var createdPlace = await _deviceRepository.CreateDevice(models);
+                return CreatedAtAction("addPlaces", new { id = createdPlace.DeviceId }, createdPlace);
+            }
+            catch (Exception ex)
+            {
+                //log error
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpDelete("/deleteDevice")]
+        public async Task<IActionResult> deleteDevice(int DevideId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _deviceRepository.Delete(DevideId);
+            if (result == 0)
+                return BadRequest();
             return Ok();
         }
     }

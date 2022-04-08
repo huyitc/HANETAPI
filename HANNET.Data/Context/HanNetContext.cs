@@ -17,10 +17,11 @@ namespace HANNET.Data.Context
         {
 
         }
-        public virtual DbSet<Device> Devices { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Person> Persons { get; set; }
-        public virtual DbSet<Place> Places { get; set; }
+        public DbSet<Device> Devices { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<Place> Places { get; set; }
+        public DbSet<PersonImage> PersonImages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
