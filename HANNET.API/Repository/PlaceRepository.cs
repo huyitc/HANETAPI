@@ -35,7 +35,7 @@ namespace HANNET.API.Repository
             var place = await _context.Places.FindAsync(PlaceId);
             if (place == null) 
                 
-              throw new Exception($"Cannot find a product: {PlaceId}");
+              throw new Exception($"Cannot find a place: {PlaceId}");
 
             _context.Places.Remove(place);
 
@@ -79,7 +79,7 @@ namespace HANNET.API.Repository
             var place = await _context.Places.FindAsync(models.PlaceId);
             if (place == null)
             {
-                throw new Exception("Cannot find device");
+                throw new Exception("Cannot find place");
 
             }
             place.PlaceName = models.PlaceName;

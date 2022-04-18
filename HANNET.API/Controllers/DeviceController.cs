@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HANNET.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("partner.hanet.ai/[controller]")]
     [ApiController]
     public class DeviceController : ControllerBase
     {
@@ -60,7 +60,7 @@ namespace HANNET.API.Controllers
             try
             {
                 var createdPlace = await _deviceRepository.CreateDevice(models);
-                return CreatedAtAction("addPlaces", new { id = createdPlace.DeviceId }, createdPlace);
+                return CreatedAtAction(nameof(addDevice), new { id = createdPlace.DeviceId }, createdPlace);
             }
             catch (Exception ex)
             {

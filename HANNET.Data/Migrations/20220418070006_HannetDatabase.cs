@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HANNET.Data.Migrations
 {
-    public partial class InitialDB : Migration
+    public partial class HannetDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -87,7 +87,7 @@ namespace HANNET.Data.Migrations
                 name: "PersonImages",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    ImageId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PersonId = table.Column<int>(type: "int", nullable: false),
                     Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -96,7 +96,7 @@ namespace HANNET.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PersonImages", x => x.id);
+                    table.PrimaryKey("PK_PersonImages", x => x.ImageId);
                     table.ForeignKey(
                         name: "FK_PersonImages_Persons_PersonId",
                         column: x => x.PersonId,

@@ -7,11 +7,11 @@ namespace HANNET.API.Contracts
 {
     public interface IDeviceRepository
     {
-        Task<List<DeviceModels>> GetAll();
+        public Task<List<DeviceModels>> GetAll();
 
-        Task<List<DeviceModels>> GetByPlaceID(int PlaceId);
+        public Task<List<DeviceModels>> GetByPlaceID(int PlaceId);
 
-        Task<int> Update(DeviceUpdateModels models);
+        public Task<int> Update(DeviceUpdateModels models);
 
         public Task<Device> CreateDevice(DeviceAddModels models);
 

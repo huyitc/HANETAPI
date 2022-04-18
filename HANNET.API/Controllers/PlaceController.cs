@@ -3,11 +3,12 @@ using HANNET.API.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace HANNET.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("partner.hanet.ai/[controller]")]
     [ApiController]
     public class PlaceController : ControllerBase
     {
@@ -25,7 +26,7 @@ namespace HANNET.API.Controllers
             return Ok(places);
         }
 
-        [HttpGet("{PlaceId}")]
+        [HttpGet("/getPlaceInFo/{PlaceId}")]
         public async Task<IActionResult> GetById(int PlaceId)
         {
             var place = await _iplaceRepository.GetById(PlaceId);
@@ -45,7 +46,7 @@ namespace HANNET.API.Controllers
             try
             {
                 var createdPlace = await _iplaceRepository.CreatePlace(models);
-                return CreatedAtAction("addPlace", new { id = createdPlace.PlaceId }, createdPlace);
+                return CreatedAtAction(nameof(addPlaces), new { id = createdPlace.PlaceId }, createdPlace);
             }
             catch (Exception ex)
             {
@@ -55,6 +56,7 @@ namespace HANNET.API.Controllers
         }
 
         [HttpPut("/updatePlaces")]
+
         public async Task<IActionResult> Update([FromForm] PlaceUpdateModels models)
         {
             var affectedResult = await _iplaceRepository.UpdatePlace(models);

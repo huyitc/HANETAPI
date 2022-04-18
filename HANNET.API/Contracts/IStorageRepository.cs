@@ -5,10 +5,10 @@ namespace HANNET.API.Contracts
 {
     public interface IStorageRepository
     {
-        string GetFileUrl(string fileName);
+       public string GetFileUrl(string fileName);
 
-        Task SaveFileAsync(Stream mediaBinaryStream, string fileName);
+       public Task SaveFileAsync(Stream mediaBinaryStream, string fileName);
 
-        Task DeleteFileAsync(string fileName);
+      public  Task DeleteFileAsync(string fileName);
     }
 }

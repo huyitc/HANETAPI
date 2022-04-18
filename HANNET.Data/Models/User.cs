@@ -10,8 +10,8 @@ namespace HANNET.Data.Models
     public class User
     {
         [Key]
-        public long UserId { get; set; } 
-
+        public long UserId { get; set; }
+        
         public int PlaceId { get; set; }
 
         public Place Place { get; set; }

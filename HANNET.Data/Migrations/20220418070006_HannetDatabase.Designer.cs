@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HANNET.Data.Migrations
 {
     [DbContext(typeof(HanNetContext))]
-    [Migration("20220408092539_InitialDB")]
-    partial class InitialDB
+    [Migration("20220418070006_HannetDatabase")]
+    partial class HannetDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,7 +72,7 @@ namespace HANNET.Data.Migrations
 
             modelBuilder.Entity("HANNET.Data.Models.PersonImage", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("ImageId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -89,7 +89,7 @@ namespace HANNET.Data.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("ImageId");
 
                     b.HasIndex("PersonId");
 
