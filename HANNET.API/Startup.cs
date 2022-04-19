@@ -1,8 +1,10 @@
 using HANNET.API.Contracts;
 using HANNET.API.Repository;
 using HANNET.Data.Context;
+using HANNET.Data.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,10 +27,20 @@ namespace HANNET.API
         {
             services.AddDbContext<HanNetContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:HannetDatabase"]));
 
+            services.AddIdentity<User, UserRole>()
+                .AddEntityFrameworkStores<HanNetContext>()
+                .AddDefaultTokenProviders();
+              
             services.AddScoped<IDeviceRepository, DeviceRepository>();
             services.AddScoped<IPlaceRepository, PlaceRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IStorageRepository, FileStorageRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+
+            services.AddTransient<UserManager<User>, UserManager<User>>();
+            services.AddTransient<SignInManager<User>, SignInManager<User>>();
+            services.AddTransient<RoleManager<UserRole>, RoleManager<UserRole>>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

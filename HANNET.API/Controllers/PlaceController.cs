@@ -19,14 +19,14 @@ namespace HANNET.API.Controllers
             _iplaceRepository = iplaceRepository;
         }
 
-        [HttpGet("/getPlaces")]
+        [HttpGet("getPlaces")]
         public async Task<IActionResult> getPlaces()
         {
             var places = await _iplaceRepository.GetAllPlace();
             return Ok(places);
         }
 
-        [HttpGet("/getPlaceInFo/{PlaceId}")]
+        [HttpGet("getPlaceInFo/{PlaceId}")]
         public async Task<IActionResult> GetById(int PlaceId)
         {
             var place = await _iplaceRepository.GetById(PlaceId);
@@ -36,7 +36,7 @@ namespace HANNET.API.Controllers
         }
 
 
-        [HttpPost("/addPlaces")]
+        [HttpPost("addPlaces")]
         public async Task<IActionResult> addPlaces([FromForm] PlaceAddModels models)
         {
             if (!ModelState.IsValid)
@@ -55,7 +55,7 @@ namespace HANNET.API.Controllers
             }
         }
 
-        [HttpPut("/updatePlaces")]
+        [HttpPut("updatePlaces")]
 
         public async Task<IActionResult> Update([FromForm] PlaceUpdateModels models)
         {
@@ -67,7 +67,7 @@ namespace HANNET.API.Controllers
             return Ok();
         }
 
-        [HttpDelete("/removePlaces/{PlaceId}")]
+        [HttpDelete("removePlaces/{PlaceId}")]
         public async Task<IActionResult> Delete(int PlaceId)
         {
             if (!ModelState.IsValid)

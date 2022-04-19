@@ -21,14 +21,14 @@ namespace HANNET.API.Controllers
         {
             _deviceRepository = deviceRepository;
         }
-        [HttpGet("/getListDevice")]
+        [HttpGet("getListDevice")]
         public async Task<IActionResult> getListDevice()
         {
             var devices = await _deviceRepository.GetAll();
             return Ok(devices);
         }
 
-        [HttpGet("/get-list-device-by-placeId/{PlaceId}")]
+        [HttpGet("get-list-device-by-placeId/{PlaceId}")]
         public async Task<IActionResult> getListDeviceByPlaceId(int PlaceId)
         {
             var devices = await _deviceRepository.GetByPlaceID(PlaceId);
@@ -39,7 +39,7 @@ namespace HANNET.API.Controllers
             return Ok(devices);
         }
 
-        [HttpPut("/updateDevice")]
+        [HttpPut("updateDevice")]
         public async Task<IActionResult> updateDevice([FromForm] DeviceUpdateModels models)
         {
             var affectedResult = await _deviceRepository.Update(models);
@@ -50,7 +50,7 @@ namespace HANNET.API.Controllers
             return Ok();
         }
 
-        [HttpPost("/addDevice")]
+        [HttpPost("addDevice")]
         public async Task<IActionResult> addDevice([FromForm] DeviceAddModels models)
         {
             if (!ModelState.IsValid)
@@ -69,7 +69,7 @@ namespace HANNET.API.Controllers
             }
         }
 
-        [HttpDelete("/deleteDevice")]
+        [HttpDelete("deleteDevice")]
         public async Task<IActionResult> deleteDevice(int DevideId)
         {
             if (!ModelState.IsValid)

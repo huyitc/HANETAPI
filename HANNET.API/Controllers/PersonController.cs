@@ -19,7 +19,7 @@ namespace HANNET.API.Controllers
         }
 
 
-        [HttpGet("/getlistByPlace/{PlaceId}")]
+        [HttpGet("getlistByPlace/{PlaceId}")]
         public async Task<IActionResult> GetByPlaceId(int PlaceId)
         {
             var person = await _personRepository.GetByPlaceId(PlaceId);
@@ -28,7 +28,7 @@ namespace HANNET.API.Controllers
             return Ok(person);
         }
 
-        [HttpGet("/getlistByAliasID/{AliasID}")]
+        [HttpGet("getlistByAliasID/{AliasID}")]
         public async Task<IActionResult> GetByAliasId(int AliasID)
         {
             var person = await _personRepository.GetByAliasId(AliasID);
@@ -37,7 +37,7 @@ namespace HANNET.API.Controllers
             return Ok(person);
         }
 
-        [HttpPost("/personRegister")]
+        [HttpPost("personRegister")]
         public async Task<IActionResult> personRegister([FromForm] PersonRegisterModels models)
         {
             if (!ModelState.IsValid)
@@ -56,7 +56,7 @@ namespace HANNET.API.Controllers
             }
         }
 
-        [HttpPost("/personRegisterByUrl")]
+        [HttpPost("personRegisterByUrl")]
         public async Task<IActionResult> personRegisterByUrl([FromForm] PersonRegisterByUrl models)
         {
             if (!ModelState.IsValid)
@@ -75,7 +75,7 @@ namespace HANNET.API.Controllers
             }
         }
 
-        [HttpPut("/updateByFaceImagePersionId/")]
+        [HttpPut("updateByFaceImagePersionId/")]
         public async Task<IActionResult> UpdateImage(int PersonId, [FromForm] PersonImageUpdate personImages)
         {
             if (!ModelState.IsValid)
@@ -90,7 +90,7 @@ namespace HANNET.API.Controllers
         }
 
 
-        [HttpPut("/updateByFaceUrlPersionId/")]
+        [HttpPut("updateByFaceUrlPersionId/")]
         public async Task<IActionResult> UpdateUrl(int PersonId, [FromForm] PersonUrlUpdate personUrls)
         {
             if (!ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace HANNET.API.Controllers
             return Ok();
         }
 
-        [HttpDelete("/removePersonByID/{PersonId}")]
+        [HttpDelete("removePersonByID/{PersonId}")]
         public async Task<IActionResult> DeletePerson(int PersonId)
         {
             if (!ModelState.IsValid)
@@ -117,7 +117,7 @@ namespace HANNET.API.Controllers
             return Ok();
         }
 
-        [HttpDelete("/removePersonByAliasID/{AliasID}")]
+        [HttpDelete("removePersonByAliasID/{AliasID}")]
         public async Task<IActionResult> DeletePersonByAliasID(int AliasID)
         {
             if (!ModelState.IsValid)
@@ -131,7 +131,7 @@ namespace HANNET.API.Controllers
         }
 
 
-        [HttpPut("/updatePerson")]
+        [HttpPut("updatePerson")]
 
         public async Task<IActionResult> Update([FromForm] PersonUpdateModels models)
         {

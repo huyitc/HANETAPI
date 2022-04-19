@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace HANNET.Data.Models
 {
-    public class User
+    public class User : IdentityUser<Guid>
     {
         [Key]
         public long UserId { get; set; }
-        
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public int PlaceId { get; set; }
-
         public Place Place { get; set; }
 
     }

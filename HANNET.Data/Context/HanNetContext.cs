@@ -22,6 +22,7 @@ namespace HANNET.Data.Context
         public DbSet<Person> Persons { get; set; }
         public DbSet<Place> Places { get; set; }
         public DbSet<PersonImage> PersonImages { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
